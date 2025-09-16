@@ -14,7 +14,7 @@ Name: Carter Piepenburg
 
 UWM Email: piepen22@uwm.edu
 
-Third Party Assets:
+Third Party Assets: Fantasy 3D models Free
 
 ## Step 1: Oculus Account Setup
 

@@ -1,27 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnfyj80sfpkq3"]
+[gd_scene load_steps=11 format=3 uid="uid://cnfyj80sfpkq3"]
 
 [ext_resource type="Script" path="res://Scripts/initializevr.gd" id="1_16ofi"]
+[ext_resource type="PackedScene" uid="uid://b7fdkincckcoe" path="res://addons/Fantasy_Free/nodes/house_003.tscn" id="2_jdc2w"]
+[ext_resource type="PackedScene" uid="uid://dnurx7wj0jbv7" path="res://addons/Fantasy_Free/nodes/fir_001.tscn" id="3_46ktw"]
+[ext_resource type="PackedScene" uid="uid://c5j3wvw46le62" path="res://addons/Fantasy_Free/nodes/cart_001.tscn" id="4_3trjj"]
+[ext_resource type="PackedScene" uid="uid://bnhc03fpjju53" path="res://addons/Fantasy_Free/nodes/big_fabulous_tree_001.tscn" id="5_o5c07"]
+[ext_resource type="PackedScene" uid="uid://baw18qyqh8c71" path="res://addons/Fantasy_Free/nodes/log_001.tscn" id="6_gjwia"]
+[ext_resource type="PackedScene" uid="uid://chj664a3jvwuk" path="res://addons/Fantasy_Free/nodes/pointer_001.tscn" id="6_ktagx"]
+[ext_resource type="Script" path="res://Scripts/spinningsign.gd" id="8_18ob4"]
 
 [sub_resource type="Environment" id="Environment_2t1jq"]
+background_mode = 1
+background_color = Color(0.793648, 0.862962, 0.999999, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_844w6"]
-albedo_color = Color(1, 0, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e17hn"]
+albedo_color = Color(3.97079e-07, 0.431357, 9.62615e-07, 1)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_16ofi")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.0682694, 0.62268, -0.779493, -0.0266718, 0.782175, 0.622487, 0.99731, -0.0217064, 0.0700067, 0, 0, -4.69616)
+transform = Transform3D(0.0868635, 0.886818, -0.453882, -0.151914, 0.462067, 0.873737, 0.984569, -0.00694489, 0.174857, 0, 0, -4.69616)
+light_color = Color(1, 1, 0.552941, 1)
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2t1jq")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2.68656)
-visible = false
-material = SubResource("StandardMaterial3D_844w6")
-
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0805217, 0)
+visible = false
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -39,3 +47,41 @@ tracker = &"right_hand"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="XROrigin3D/Right"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Grass" type="CSGBox3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 0, 0, 0)
+material = SubResource("StandardMaterial3D_e17hn")
+
+[node name="house_003" parent="." instance=ExtResource("2_jdc2w")]
+transform = Transform3D(0.591169, 0, -0.806548, 0, 1, 0, 0.806548, 0, 0.591169, -2.72871, 0, -6.36099)
+
+[node name="fir_003" parent="." instance=ExtResource("3_46ktw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.06031, 0, -5.02915)
+
+[node name="fir_004" parent="." instance=ExtResource("3_46ktw")]
+transform = Transform3D(0.618216, 0, -0.786008, 0, 1, 0, 0.786008, 0, 0.618216, 6.55898, 0, -0.898747)
+
+[node name="fir_005" parent="." instance=ExtResource("3_46ktw")]
+transform = Transform3D(0.618216, 0, -0.786008, 0, 1, 0, 0.786008, 0, 0.618216, 6.08684, 0, -3.76405)
+
+[node name="fir_002" parent="." instance=ExtResource("3_46ktw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.08807, 0, -6.42943)
+
+[node name="fir_001" parent="." instance=ExtResource("3_46ktw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54403, 0, -7.8297)
+
+[node name="cart_001" parent="." instance=ExtResource("4_3trjj")]
+transform = Transform3D(0.956991, 0, -0.290118, 0, 1, 0, 0.290118, 0, 0.956991, -4.2676, 0, -2.47112)
+
+[node name="big_fabulous_tree_001" parent="." instance=ExtResource("5_o5c07")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275315, 0, -11.8731)
+
+[node name="log_001" parent="." instance=ExtResource("6_gjwia")]
+transform = Transform3D(0.882193, 0, 0.470889, 0, 1, 0, -0.470889, 0, 0.882193, 0.223769, 0, -7.19037)
+
+[node name="pointer_001" parent="." instance=ExtResource("6_ktagx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.74685, 0, -3.48684)
+script = ExtResource("8_18ob4")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.950494, 0, -0.310743, 0, 1, 0, 0.310743, 0, 0.950494, 0, 1.24936, 1.34062)
