@@ -120,5 +120,3 @@ Please test that your submission meets these requirements.  For example, after y
 
 This assignment is an edited version of an assignment created by Evan Suma Rosenberg, which was released under the CC BY-NC-SA 4.0 license.
   
-
-
