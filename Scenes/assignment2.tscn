@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnfyj80sfpkq3"]
+
+[ext_resource type="Script" uid="uid://b0arcax67joif" path="res://Scripts/initializevr.gd" id="1_mqscy"]
+[ext_resource type="Script" uid="uid://d1hhpiinxgj2y" path="res://Scripts/cube_generator.gd" id="2_ckfnk"]
+[ext_resource type="Script" uid="uid://cujor76y6jdrd" path="res://Scripts/playercontroller.gd" id="2_toi4l"]
+[ext_resource type="AudioStream" uid="uid://ba2tgtdkd0p6s" path="res://audio/hit.mp3" id="4_tva4v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_toi4l"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_toi4l"]
+height = 7.0
+radius = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tva4v"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="Environment" id="Environment_2t1jq"]
+background_mode = 1
+fog_light_energy = 0.0
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_mqscy")
+
+[node name="Player" type="XROrigin3D" parent="."]
+transform = Transform3D(-0.99999976, 0, -8.7422755e-08, 0, 1, 0, 8.7422755e-08, 0, -0.99999976, 0, 0, 0)
+script = ExtResource("2_toi4l")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player/XRCamera3D"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="LeftHand" type="XRController3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+
+[node name="Hand" type="CSGBox3D" parent="Player/LeftHand"]
+transform = Transform3D(0.1, 0, 0, 0, 0.07071068, 0.07071068, 0, -0.07071068, 0.07071068, 0, 0, 0)
+
+[node name="Sword" type="CSGCylinder3D" parent="Player/LeftHand/Hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+radius = 0.1
+height = 7.0
+material = SubResource("StandardMaterial3D_toi4l")
+
+[node name="LeftArea" type="Area3D" parent="Player/LeftHand/Hand/Sword"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/LeftHand/Hand/Sword/LeftArea"]
+transform = Transform3D(1, 0, 0, 1.4210855e-14, 1, 2.9802322e-08, -1.4210855e-14, 2.9802322e-08, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_toi4l")
+
+[node name="RightHand" type="XRController3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"right_hand"
+
+[node name="Hand" type="CSGBox3D" parent="Player/RightHand"]
+transform = Transform3D(0.1, 0, 0, 0, 0.07071068, 0.07071068, 0, -0.07071068, 0.07071068, 0, 0, 0)
+
+[node name="Sword" type="CSGCylinder3D" parent="Player/RightHand/Hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+radius = 0.1
+height = 7.0
+material = SubResource("StandardMaterial3D_tva4v")
+
+[node name="RightArea" type="Area3D" parent="Player/RightHand/Hand/Sword"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/RightHand/Hand/Sword/RightArea"]
+transform = Transform3D(1, 0, 0, 1.4210855e-14, 1, 2.9802322e-08, -1.4210855e-14, 2.9802322e-08, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_toi4l")
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_2t1jq")
+
+[node name="CubeGenerator" type="Node3D" parent="."]
+script = ExtResource("2_ckfnk")
+
+[node name="Timer" type="Timer" parent="CubeGenerator"]
+autostart = true
+
+[node name="hitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tva4v")
+
+[connection signal="area_entered" from="Player/LeftHand/Hand/Sword/LeftArea" to="Player" method="_on_left_area_area_entered"]
+[connection signal="area_entered" from="Player/RightHand/Hand/Sword/RightArea" to="Player" method="_on_right_area_area_entered"]
+[connection signal="timeout" from="CubeGenerator/Timer" to="CubeGenerator" method="_on_timer_timeout"]

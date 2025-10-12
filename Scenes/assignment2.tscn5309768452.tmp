@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnfyj80sfpkq3"]
+
+[ext_resource type="Script" uid="uid://b0arcax67joif" path="res://Scripts/initializevr.gd" id="1_mqscy"]
+[ext_resource type="Script" uid="uid://d1hhpiinxgj2y" path="res://Scripts/cube_generator.gd" id="2_ckfnk"]
+
+[sub_resource type="GDScript" id="GDScript_toi4l"]
+script/source = "extends XROrigin3D
+
+func center_on_hmd()
+"
+
+[sub_resource type="GDScript" id="GDScript_ckfnk"]
+script/source = "extends XRCamera3D
+
+func _on_openxr_pose_recentered() -> void:
+	center_on_hmd()
+"
+
+[sub_resource type="Environment" id="Environment_2t1jq"]
+background_mode = 1
+fog_light_energy = 0.0
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_mqscy")
+
+[node name="Player" type="XROrigin3D" parent="."]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 0, 0, 0)
+script = SubResource("GDScript_toi4l")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+script = SubResource("GDScript_ckfnk")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player/XRCamera3D"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Left" type="XRController3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player/Left"]
+transform = Transform3D(0.1, 0, 0, 0, 0.07071068, 0.07071068, 0, -0.07071068, 0.07071068, 0, 0, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Player/Left/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+radius = 0.1
+height = 10.0
+
+[node name="Right" type="XRController3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"right_hand"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player/Right"]
+transform = Transform3D(0.1, 0, 0, 0, 0.07071068, 0.07071068, 0, -0.07071068, 0.07071068, 0, 0, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Player/Right/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+radius = 0.1
+height = 10.0
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_2t1jq")
+
+[node name="CubeGenerator" type="Node3D" parent="."]
+script = ExtResource("2_ckfnk")
+
+[node name="Timer" type="Timer" parent="CubeGenerator"]
+autostart = true
+
+[connection signal="timeout" from="CubeGenerator/Timer" to="CubeGenerator" method="_on_timer_timeout"]
