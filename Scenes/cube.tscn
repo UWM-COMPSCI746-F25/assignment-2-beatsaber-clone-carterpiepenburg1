@@ -17,5 +17,8 @@ shape = SubResource("BoxShape3D_m6c8s")
 
 [node name="hit" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_dt3qw")
+volume_db = -15.0
+max_distance = 1917.97
+panning_strength = 2.0
 
 [connection signal="area_entered" from="cubeArea" to="." method="_on_area_3d_area_entered"]

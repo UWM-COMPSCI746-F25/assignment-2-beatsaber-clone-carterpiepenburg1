@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnfyj80sfpkq3"]
+[gd_scene load_steps=8 format=3 uid="uid://cnfyj80sfpkq3"]
 
 [ext_resource type="Script" uid="uid://b0arcax67joif" path="res://Scripts/initializevr.gd" id="1_mqscy"]
 [ext_resource type="Script" uid="uid://d1hhpiinxgj2y" path="res://Scripts/cube_generator.gd" id="2_ckfnk"]
 [ext_resource type="Script" uid="uid://cujor76y6jdrd" path="res://Scripts/playercontroller.gd" id="2_toi4l"]
-[ext_resource type="AudioStream" uid="uid://ba2tgtdkd0p6s" path="res://audio/hit.mp3" id="4_tva4v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_toi4l"]
 albedo_color = Color(0, 0, 1, 1)
@@ -81,9 +80,8 @@ script = ExtResource("2_ckfnk")
 [node name="Timer" type="Timer" parent="CubeGenerator"]
 autostart = true
 
-[node name="hitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_tva4v")
-
+[connection signal="button_pressed" from="Player/LeftHand" to="Player" method="_on_left_hand_button_pressed"]
 [connection signal="area_entered" from="Player/LeftHand/Hand/Sword/LeftArea" to="Player" method="_on_left_area_area_entered"]
+[connection signal="button_pressed" from="Player/RightHand" to="Player" method="_on_right_hand_button_pressed"]
 [connection signal="area_entered" from="Player/RightHand/Hand/Sword/RightArea" to="Player" method="_on_right_area_area_entered"]
 [connection signal="timeout" from="CubeGenerator/Timer" to="CubeGenerator" method="_on_timer_timeout"]

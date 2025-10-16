@@ -14,6 +14,7 @@ Name: Carter Piepenburg
 UWM Email: piepen22@uwm.edu
 
 Third Party Assets:
+https://docs.godotengine.org/en/stable/tutorials/xr/a_better_xr_start_script.html
 
 ## Getting Started
 
