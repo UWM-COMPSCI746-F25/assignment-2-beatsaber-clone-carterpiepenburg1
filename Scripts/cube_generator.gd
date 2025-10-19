@@ -15,6 +15,8 @@ func _on_timer_timeout() -> void:
 	var newCube = cube.instantiate()
 	var size = newCube.size.x
 	
+	cubeSpeed = randf_range(0.5, 2)
+	
 	#Position will be a in a 4x4 grid
 	var yGrid = randi_range(0, 3)
 	var xGrid = randi_range(0, 3)
